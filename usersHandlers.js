@@ -75,6 +75,29 @@ const deleteUser = (req, res)=>{
     })
 }
 
+const userFilter = (req,res)=>{
+    const sql = "select * from users"
+    const sqlValues = []
+    if (req.query.language!=null){
+        sql += " where language = ?"
+        sqlValues.push(req.query.language)
+    }
+    if (req.query.city !=null){
+        sql += " where city = ?"
+        sqlValues.push(req.query.city)
+    }
+    database
+    .query (sql,sqlValues)
+    .then (([result])=>{
+        req.json(result)
+    })
+    .catch((err)=>{
+        console.error(err)
+        res.status(500).send("error to find what you want")
+    }
+    )
+}
+
 module.exports = {
     getUsers,
     getUsersById,
