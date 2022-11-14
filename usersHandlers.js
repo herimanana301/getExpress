@@ -83,7 +83,11 @@ const userFilter = (req,res)=>{
         sqlValues.push(req.query.language)
     }
     if (req.query.city !=null){
-        sql += " where city = ?"
+        sql += " and city = ?"
+        sqlValues.push(req.query.city)
+    }
+    else if (req.query.city != null){
+        sql += "where city = ?"
         sqlValues.push(req.query.city)
     }
     database
